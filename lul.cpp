@@ -1,6 +1,8 @@
 /******************************************************************************
-2017-12-12
+
+2017-08-08
 *******************************************************************************/
+
 #include <iostream>
 #include<conio.h>
 #include<string.h>
@@ -21,21 +23,42 @@ class linkdlist
     
 };
 linkdlist *top=NULL;
-void insert(int a)
+int len()
+{
+    linkdlist *p= new(linkdlist);
+    p=top;
+    int count=0;
+    while(p!=NULL)
+    {
+        count++;
+        p=p->next;
+    }
+    return count;
+    
+}
+void insert(int a,int pos)
 {
     linkdlist *hr=new(linkdlist);
-   if(top==NULL)
+    linkdlist *q=new(linkdlist);
+   if(top==NULL||pos==1)
    {
+       hr->next=top;
        top=hr;
        hr->data=a;
    }
    else
    {
-       hr->next=top;
+       q=top;
+       for(int i=0;i<pos-2;i++)
+       {
+           q=q->next;
+       }
+       hr->next=q->next;
+       q->next=hr;
        hr->data=a;
-       top=hr;
        
    }
+   cout<<"\tlength of LL:  "<<len()<<"\n";
 }
 void print()
 {
@@ -54,7 +77,7 @@ void del()
 }
 int main()
 {
-    int a,no;
+    int a,no,pos;
     linkdlist node;
     a=0;
     while(a!=4)
@@ -68,7 +91,9 @@ int main()
         {
             case 1: cout<<"enter the no ";
                     cin>>no;
-                    insert(no);
+                    cout<<"enter the pos";
+                    cin>>pos;
+                    insert(no,pos);
                     break;
             case 2:del();
                     break;
@@ -81,3 +106,4 @@ int main()
 
     return 0;
 }
+
